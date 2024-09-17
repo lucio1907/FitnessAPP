@@ -1,12 +1,10 @@
 import { DataTypes } from "sequelize";
 import sequelizeConfig from "../config/sequelize.config";
-import WorkoutsModel from "./Workouts.models";
-import ProgressModel from "./Progress.models";
 
 const UsersModel = sequelizeConfig.define(
   "users",
   {
-    id: {
+    user_id: {
       type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
@@ -31,7 +29,7 @@ const UsersModel = sequelizeConfig.define(
     },
     phone_number: {
       type: DataTypes.STRING,
-      unique: true,
+      allowNull: false,
       defaultValue: "No phone",
     },
   },
@@ -39,15 +37,5 @@ const UsersModel = sequelizeConfig.define(
     timestamps: false,
   }
 );
-
-UsersModel.hasMany(WorkoutsModel, {
-  foreignKey: "user_id",
-  onDelete: "CASCADE",
-});
-
-UsersModel.hasMany(ProgressModel, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-})
 
 export default UsersModel;

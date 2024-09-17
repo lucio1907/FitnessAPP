@@ -1,12 +1,10 @@
 import { DataTypes } from "sequelize";
 import sequelizeConfig from "../config/sequelize.config";
-import WorkoutExersicesModel from "./WorkoutExercises.models";
-import ProgressModel from "./Progress.models";
 
 const ExercisesModel = sequelizeConfig.define(
   "exercises",
   {
-    id: {
+    exercise_id: {
       type: DataTypes.STRING,
       primaryKey: true,
       unique: true,
@@ -30,16 +28,5 @@ const ExercisesModel = sequelizeConfig.define(
     timestamps: false,
   }
 );
-
-ExercisesModel.belongsToMany(WorkoutExersicesModel, {
-  through: WorkoutExersicesModel,
-  foreignKey: "exercise_id",
-  onDelete: "CASCADE",
-});
-
-ExercisesModel.hasMany(ProgressModel, {
-  foreignKey: "exercise_id",
-  onDelete: "CASCADE",
-});
 
 export default ExercisesModel;

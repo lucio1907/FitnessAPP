@@ -1,7 +1,10 @@
 import { Request, Response, Router } from "express";
 import errorHandler from "../middlewares/errorHandler.middlewares";
+import usersRoutes from "./users/users.routes";
 
 const routes = Router();
+
+routes.use('/users', usersRoutes);
 
 routes.use(errorHandler);
 

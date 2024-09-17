@@ -1,11 +1,9 @@
 import { DataTypes } from "sequelize";
 import sequelizeConfig from "../config/sequelize.config";
 import UsersModel from "./Users.models";
-import ExercisesModel from "./Exercises.models";
-import WorkoutExersicesModel from "./WorkoutExercises.models";
 
 const WorkoutsModel = sequelizeConfig.define("workouts", {
-  id: {
+  workout_id: {
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
@@ -16,7 +14,7 @@ const WorkoutsModel = sequelizeConfig.define("workouts", {
     allowNull: false,
     references: {
       model: UsersModel,
-      key: "id",
+      key: "user_id",
     },
   },
   workout_name: {
@@ -28,17 +26,6 @@ const WorkoutsModel = sequelizeConfig.define("workouts", {
     allowNull: true,
     defaultValue: "No description",
   },
-});
-
-WorkoutsModel.belongsTo(UsersModel, {
-  foreignKey: "user_id",
-  onDelete: "CASCADE",
-});
-
-WorkoutsModel.belongsToMany(WorkoutExersicesModel, {
-  through: WorkoutExersicesModel,
-  foreignKey: "workout_id",
-  onDelete: "CASCADE",
 });
 
 export default WorkoutsModel;

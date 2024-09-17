@@ -17,7 +17,7 @@ const ProgressModel = sequelizeConfig.define(
       allowNull: false,
       references: {
         model: UsersModel,
-        key: "id",
+        key: "user_id",
       },
     },
     exercise_id: {
@@ -25,7 +25,7 @@ const ProgressModel = sequelizeConfig.define(
       allowNull: false,
       references: {
         model: ExercisesModel,
-        key: "id",
+        key: "exercise_id",
       },
     },
     sets: {
@@ -48,15 +48,5 @@ const ProgressModel = sequelizeConfig.define(
     timestamps: false,
   }
 );
-
-ProgressModel.belongsTo(UsersModel, {
-  foreignKey: "user_id",
-  onDelete: "CASCADE",
-});
-
-ProgressModel.belongsTo(ExercisesModel, {
-  foreignKey: "exercise_id",
-  onDelete: "CASCADE",
-});
 
 export default ProgressModel;

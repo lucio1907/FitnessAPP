@@ -17,7 +17,7 @@ const WorkoutExersicesModel = sequelizeConfig.define(
       allowNull: false,
       references: {
         model: WorkoutsModel,
-        key: "id",
+        key: "workout_id",
       },
     },
     exercise_id: {
@@ -25,7 +25,7 @@ const WorkoutExersicesModel = sequelizeConfig.define(
       allowNull: false,
       references: {
         model: ExercisesModel,
-        key: "id",
+        key: "exercise_id",
       },
     },
     sets: {
@@ -44,15 +44,5 @@ const WorkoutExersicesModel = sequelizeConfig.define(
     timestamps: false,
   }
 );
-
-WorkoutExersicesModel.belongsTo(WorkoutsModel, {
-  foreignKey: "workout_id",
-  onDelete: "CASCADE",
-});
-
-WorkoutExersicesModel.belongsTo(ExercisesModel, {
-  foreignKey: "exercise_id",
-  onDelete: "CASCADE",
-});
 
 export default WorkoutExersicesModel;
