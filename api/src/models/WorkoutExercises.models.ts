@@ -28,6 +28,10 @@ const WorkoutExersicesModel = sequelizeConfig.define(
         key: "exercise_id",
       },
     },
+    day: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     sets: {
       type: DataTypes.INTEGER,
       allowNull: false,

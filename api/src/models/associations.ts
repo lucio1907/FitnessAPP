@@ -52,12 +52,6 @@ WorkoutExersicesModel.belongsTo(ExercisesModel, {
   onDelete: 'CASCADE'
 })
 
-// A progress belongs to a single workout
-ProgressModel.belongsTo(WorkoutsModel, {
-  foreignKey: 'workout_id',
-  onDelete: 'CASCADE'
-})
-
 // A progress belongs to a user
 ProgressModel.belongsTo(UsersModel, {
   foreignKey: 'user_id',

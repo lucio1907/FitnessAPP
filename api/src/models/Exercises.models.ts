@@ -19,9 +19,16 @@ const ExercisesModel = sequelizeConfig.define(
       allowNull: true,
       defaultValue: "No description",
     },
-    category: {
-      type: DataTypes.STRING,
+    sets: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    reps: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    weight: {
+      type: DataTypes.DECIMAL(5, 2),
     },
   },
   {
