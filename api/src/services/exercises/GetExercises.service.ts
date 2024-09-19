@@ -1,3 +1,4 @@
+import NotFoundException from "../../errors/NotFoundException";
 import ExercisesModel from "../../models/Exercises.models";
 
 class GetExercisesService {
@@ -9,6 +10,9 @@ class GetExercisesService {
 
     public get = async () => {
         const getall = await this.collection.findAll();
+
+        if (getall.length === 0) throw new NotFoundException('No exercises added');
+
         return getall;
     }
 };
