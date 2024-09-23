@@ -33,7 +33,7 @@ const Workouts = (props: Props): React.ReactElement => {
           <h1 className="text-white text-2xl">Your workouts:</h1>
           {props.workouts?.map((item, index) => (
             <Link
-              href={`/dashboard/${item.workout_id}`}
+              href={`/dashboard/workout/${item.workout_id}`}
               key={item.workout_id}
               className="text-white"
             >

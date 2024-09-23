@@ -12,12 +12,9 @@ class GetWorkoutByNameService {
     this.collection = WorkoutsModel;
   }
 
-  public get = async (workout_name: string) => {
+  public get = async (workout_id: string) => {
     const workout = await this.collection.findOne({
-      where: sequelize.where(
-        sequelize.fn("LOWER", sequelize.col("workout_name")),
-        workout_name.toLowerCase()
-      ),
+      where: { workout_id },
       attributes: {
         exclude: ["updatedAt", "user_id"],
       },
@@ -40,7 +37,7 @@ class GetWorkoutByNameService {
       ],
     });
 
-    if (workout === null) throw new NotFoundException(`${workout_name.toUpperCase()} doesn't exists`);
+    if (workout === null) throw new NotFoundException(`Workout with ID: ${workout_id} doesn't exists`);
 
     if (workout.dataValues.workout_exercises.length === 0)
       return {

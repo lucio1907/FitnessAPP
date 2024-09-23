@@ -25,8 +25,9 @@ export const getAllWorkouts = async (req: Request, res: Response, next: NextFunc
 };
 
 export const getWorkout = async (req: Request, res: Response, next: NextFunction) => {
+    const { workout_id } = req.params
     try {
-        const workout = await getWorkoutByNameService.get(req.body.workout_name);
+        const workout = await getWorkoutByNameService.get(workout_id);
         return res.json({ response: { message: workout.message, workout: workout.workout_info } });
     } catch (error) {
         next(error);
