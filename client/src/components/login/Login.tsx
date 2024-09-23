@@ -20,13 +20,14 @@ interface LoginFields {
 }
 
 const Login = (): React.ReactElement => {
-  const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
-  
+  const { errorMessage, errorHandler } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const handleSubmit = async (values: LoginFields) => {
     const { email, password } = values;
-    loadingHandler(true);
+    setIsLoading(true);
 
     try {
       const response = await axios.post(
@@ -42,7 +43,7 @@ const Login = (): React.ReactElement => {
         const { id: userId, credentials: { email, name, lastname } } = user;
 
         if (access_token) {
-          loadingHandler(false);
+          setIsLoading(false);
           Cookies.set("user_id", userId);
           Cookies.set("auth_token", access_token);
           Cookies.set("email", email);
@@ -52,7 +53,7 @@ const Login = (): React.ReactElement => {
         }
       }
     } catch (error: any) {
-        loadingHandler(false);
+        setIsLoading(false);
         errorHandler(error.response.data.response.message)
         
         setTimeout(() => {
