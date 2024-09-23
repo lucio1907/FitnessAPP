@@ -16,9 +16,9 @@ const DashboardHeader = (): React.ReactElement => {
     <nav className="w-full h-[100px] bg-black border-b-[1px] border-main-color shadow-main-color flex items-center">
       <div className="flex justify-between items-center w-full px-5">
         <div>
-          <h2 className="text-white text-2xl font-semibold">
+          <Link href='/dashboard' className="text-white text-2xl font-semibold">
             Hi again, {username}!
-          </h2>
+          </Link>
           <p className="text-main-color text-[13px]">
             Let's crush your goals today!
           </p>
