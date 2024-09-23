@@ -6,6 +6,7 @@ import SubmitButton from "../buttons/SubmitButton";
 import * as Yup from "yup";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/hooks/useContext";
 
 const INITIAL_VALUES = {
   name: "",
@@ -24,8 +25,7 @@ interface RegisterFields {
 }
 
 const Register = (): React.ReactElement => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
   const [success, setSuccess] = useState<string>("");
 
   const router = useRouter();
@@ -35,7 +35,7 @@ const Register = (): React.ReactElement => {
     { resetForm }: FormikHelpers<RegisterFields>
   ) => {
     const { name, lastname, email, password, phone_number } = values;
-    setIsLoading(true);
+    loadingHandler(true);
 
     try {
       const axiosResponse = await axios.post(
@@ -50,17 +50,17 @@ const Register = (): React.ReactElement => {
       );
 
       if (axiosResponse.status === 201) {
-        setIsLoading(false);
+        loadingHandler(false);
         setSuccess(axiosResponse.data.response.message);
 
         router.push("/login");
       }
     } catch (error: any) {
-      setIsLoading(false);
-      setErrorMessage(error.response.data.response.message);
+      loadingHandler(false);
+      errorHandler(error.response.data.response.message);
 
       setTimeout(() => {
-        setErrorMessage("");
+        errorHandler("");
         resetForm();
       }, 3000);
     }
@@ -97,7 +97,7 @@ const Register = (): React.ReactElement => {
     <div className="w-full h-full flex flex-col justify-center items-center gap-5">
       <div className="flex flex-col items-center mt-10">
         <h1 className="text-white text-5xl font-semibold">Fitness APP</h1>
-        <p className="font-semibold text-[#fb4f93]">
+        <p className="font-semibold text-main-color">
           Make your training easier.
         </p>
       </div>

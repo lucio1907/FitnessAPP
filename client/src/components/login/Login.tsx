@@ -7,6 +7,7 @@ import axios from "axios";
 import SubmitButton from "../buttons/SubmitButton";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/hooks/useContext";
 
 const INITIAL_VALUES = {
   email: "",
@@ -19,14 +20,13 @@ interface LoginFields {
 }
 
 const Login = (): React.ReactElement => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [loginError, setLoginError] = useState<string>('');
+  const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
   
   const router = useRouter();
 
   const handleSubmit = async (values: LoginFields) => {
     const { email, password } = values;
-    setIsLoading(true);
+    loadingHandler(true);
 
     try {
       const response = await axios.post(
@@ -42,7 +42,7 @@ const Login = (): React.ReactElement => {
         const { id: userId, credentials: { email, name, lastname } } = user;
 
         if (access_token) {
-          setIsLoading(false);
+          loadingHandler(false);
           Cookies.set("user_id", userId);
           Cookies.set("auth_token", access_token);
           Cookies.set("email", email);
@@ -52,11 +52,11 @@ const Login = (): React.ReactElement => {
         }
       }
     } catch (error: any) {
-        setIsLoading(false);
-        setLoginError(error.response.data.response.message)
+        loadingHandler(false);
+        errorHandler(error.response.data.response.message)
         
         setTimeout(() => {
-            setLoginError('')
+            errorHandler('')
         }, 3000);
     }
   };
@@ -87,7 +87,7 @@ const Login = (): React.ReactElement => {
     <div className="w-full h-dvh flex flex-col justify-center items-center gap-10">
       <div className="flex flex-col items-center">
         <h1 className="text-white text-5xl font-semibold">Fitness APP</h1>
-        <p className="font-semibold text-[#fb4f93]">
+        <p className="font-semibold text-main-color">
           Make your training easier.
         </p>
       </div>
@@ -112,7 +112,7 @@ const Login = (): React.ReactElement => {
             classname="w-[80%] p-4 rounded-xl placeholder:text-center outline-none font-medium"
           />
 
-          <SubmitButton value={ isLoading ? "Logging in..." : loginError ? loginError : "Login"} />
+          <SubmitButton value={ isLoading ? "Logging in..." : errorMessage ? errorMessage : "Login"} />
         </Form>
       </Formik>
     </div>

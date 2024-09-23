@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import GlobalContextProvider from "@/context/store";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "600", "900"] });
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     "health",
     "balance",
     "motivation",
-    "personal growth"
+    "personal growth",
   ],
 };
 
@@ -33,7 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-black`}>{children}</body>
+      <body className={`${poppins.className} bg-black`}>
+        <GlobalContextProvider>{children}</GlobalContextProvider>
+      </body>
     </html>
   );
 }
