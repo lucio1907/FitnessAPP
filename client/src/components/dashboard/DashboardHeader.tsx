@@ -24,7 +24,7 @@ const DashboardHeader = (): React.ReactElement => {
           </p>
         </div>
         <div>
-          <Link href="/dashboard/profile">
+          <Link href="/profile-info">
             <ProfileSvg classname="text-white w-[40px]" />
           </Link>
         </div>

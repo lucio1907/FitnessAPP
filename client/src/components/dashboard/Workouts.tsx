@@ -1,5 +1,5 @@
 import React from "react";
-import { WorkoutsTypes } from "./DashboardHome";
+import { WorkoutsTypes } from "./DashboardWorkouts";
 import Link from "next/link";
 
 interface Props {
@@ -21,7 +21,7 @@ const Workouts = (props: Props): React.ReactElement => {
             </p>
           </div>
           <Link
-            href="/dashboard/create-workout"
+            href="/your-workouts/create-workout"
             className="bg-main-color p-4 rounded-xl text-white text-lg font-semibold"
           >
             Create workout!
@@ -33,7 +33,7 @@ const Workouts = (props: Props): React.ReactElement => {
           <h1 className="text-white text-2xl">Your workouts:</h1>
           {props.workouts?.map((item, index) => (
             <Link
-              href={`/dashboard/workout/${item.workout_id}`}
+              href={`/your-workouts/workout/${item.workout_id}`}
               key={item.workout_id}
               className="text-white"
             >

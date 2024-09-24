@@ -1,4 +1,4 @@
-import { ExerciseTypes } from "@/app/dashboard/workout/[id]/page";
+import { ExerciseTypes } from "@/app/your-workouts/workout/[id]/page";
 import React from "react";
 
 const dayTranslations: { [key: string]: string } = {

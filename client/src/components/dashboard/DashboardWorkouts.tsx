@@ -21,7 +21,7 @@ export interface WorkoutsTypes {
   };
 }
 
-const DashboardHome = (): React.ReactElement => {
+const DashboardWorkouts = (): React.ReactElement => {
   const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
 
   const [workouts, setWorkouts] = useState<WorkoutsTypes[]>();
@@ -65,4 +65,4 @@ const DashboardHome = (): React.ReactElement => {
   );
 };
 
-export default DashboardHome;
+export default DashboardWorkouts;

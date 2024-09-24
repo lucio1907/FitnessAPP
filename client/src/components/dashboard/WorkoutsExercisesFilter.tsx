@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import FilterDayButton from "@/components/buttons/FilterDayButton";
 import WorkoutExercisesInfo from "@/components/dashboard/WorkoutExercisesInfo";
-import { ExerciseTypes } from "@/app/dashboard/workout/[id]/page";
+import { ExerciseTypes } from "@/app/your-workouts/workout/[id]/page";
 import Link from "next/link";
 
 // Mapa de días en español e inglés

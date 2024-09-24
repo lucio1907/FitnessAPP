@@ -1,10 +1,9 @@
-import DashboardHome from '@/components/dashboard/DashboardHome'
 import React from 'react'
 
-const DashboardPage = (): React.ReactElement => {
+const DashboardPage = () => {
   return (
-    <div className='w-full h-full'>
-        <DashboardHome/>
+    <div>
+        
     </div>
   )
 }
