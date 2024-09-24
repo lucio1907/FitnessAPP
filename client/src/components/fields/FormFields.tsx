@@ -11,7 +11,7 @@ interface FieldProps {
 
 const FormFields = (props: FieldProps): React.ReactElement => {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div className="w-full flex justify-center items-center">
         <Field
           name={props.name}

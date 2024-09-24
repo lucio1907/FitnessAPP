@@ -11,12 +11,12 @@ const Workouts = (props: Props): React.ReactElement => {
   return (
     <div className="px-5 w-full">
       {props.errorMessage ? (
-        <div className="w-full flex flex-col items-center gap-5">
+        <div className="w-full h-[80dvh] flex flex-col items-center justify-center gap-5">
           <div className="flex flex-col items-center">
-            <h2 className="text-white font-semibold text-3xl">
+            <h2 className="text-white text-4xl text-center">
               {props.errorMessage}...
             </h2>
-            <p className="text-main-color text-center">
+            <p className="text-main-color text-center mt-6 mb-3">
               Get ready to create your personalized workout!
             </p>
           </div>

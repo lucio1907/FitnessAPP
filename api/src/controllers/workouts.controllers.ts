@@ -5,6 +5,7 @@ import getWorkoutByNameService from "../services/workouts/GetWorkoutByName.servi
 import addExerciseService from "../services/workouts/AddExercise.service";
 import updateWorkoutService from "../services/workouts/UpdateWorkout.service";
 import deleteWorkoutService from "../services/workouts/DeleteWorkout.service";
+import getUserWorkoutsService from "../services/workouts/GetUserWorkouts.service";
 
 export const createWorkout = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -60,3 +61,12 @@ export const deleteWorkout = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+export const getWorkoutByUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const getWorkouts = await getUserWorkoutsService.get(req.params.user_id);
+        return res.json({ response: { message: getWorkouts.message, data: getWorkouts.workouts } })
+    } catch (error) {
+        next(error);
+    }
+}

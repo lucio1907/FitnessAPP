@@ -22,31 +22,34 @@ export interface WorkoutsTypes {
 }
 
 const DashboardWorkouts = (): React.ReactElement => {
-  const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
+  const { isLoading, loadingHandler } = useGlobalContext();
 
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [workouts, setWorkouts] = useState<WorkoutsTypes[]>();
 
   const router = useRouter();
 
-  const getWorkouts = async (auth_token: string) => {
+  const getWorkouts = async (auth_token: string, user_id: string) => {
     try {
-      const response = await axios.get("http://localhost:8080/workout", {
+      const response = await axios.get(`http://localhost:8080/workout/user/${user_id}`, {
         headers: {
           Authorization: `Bearer ${auth_token}`,
         },
       });
-      setWorkouts(response.data.response.workouts);
+      setWorkouts(response.data.response.data.workouts);
+      console.log(response.data.response.data.workouts)
       loadingHandler(false);
     } catch (error: any) {
-      errorHandler(error.response.data.response.message);
+      setErrorMessage(error.response.data.response.message);
       loadingHandler(false);
     }
   };
 
   useEffect(() => {
     const auth = Cookies.get("auth_token");
+    const user_id = Cookies.get('user_id');
 
-    if (auth) getWorkouts(auth);
+    if (auth && user_id) getWorkouts(auth, user_id);
     else router.push("/login");
   }, []);
 

@@ -1,6 +1,6 @@
 "use client";
 import { Form, Formik, FormikHelpers } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormFields from "../fields/FormFields";
 import SubmitButton from "../buttons/SubmitButton";
 import * as Yup from "yup";
@@ -25,7 +25,8 @@ interface RegisterFields {
 }
 
 const Register = (): React.ReactElement => {
-  const { isLoading, loadingHandler, errorMessage, errorHandler } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
 
   const router = useRouter();
@@ -35,7 +36,7 @@ const Register = (): React.ReactElement => {
     { resetForm }: FormikHelpers<RegisterFields>
   ) => {
     const { name, lastname, email, password, phone_number } = values;
-    loadingHandler(true);
+    setIsLoading(true);
 
     try {
       const axiosResponse = await axios.post(
@@ -50,17 +51,17 @@ const Register = (): React.ReactElement => {
       );
 
       if (axiosResponse.status === 201) {
-        loadingHandler(false);
+        setIsLoading(false);
         setSuccess(axiosResponse.data.response.message);
 
         router.push("/login");
       }
     } catch (error: any) {
-      loadingHandler(false);
-      errorHandler(error.response.data.response.message);
+      setIsLoading(false);
+      setErrorMessage(error.response.data.response.message);
 
       setTimeout(() => {
-        errorHandler("");
+        setErrorMessage("");
         resetForm();
       }, 3000);
     }
@@ -102,14 +103,13 @@ const Register = (): React.ReactElement => {
         </p>
       </div>
 
-      <h2 className="text-white font-semibold text-4xl">Register</h2>
-
       <Formik
         initialValues={INITIAL_VALUES}
         onSubmit={(values, resetForm) => handleSubmit(values, resetForm)}
         validate={validateFields}
       >
-        <Form className="flex flex-col items-center w-full gap-5">
+        <Form className="flex flex-col items-center justify-center w-full gap-8 h-[600px]">
+          <h2 className="text-white font-semibold text-4xl">Register</h2>
           <FormFields
             name="name"
             type="text"

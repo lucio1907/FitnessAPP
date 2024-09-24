@@ -7,7 +7,7 @@ import axios from "axios";
 import SubmitButton from "../buttons/SubmitButton";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "@/hooks/useContext";
+import Link from "next/link";
 
 const INITIAL_VALUES = {
   email: "",
@@ -20,7 +20,7 @@ interface LoginFields {
 }
 
 const Login = (): React.ReactElement => {
-  const { errorMessage, errorHandler } = useGlobalContext();
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -30,17 +30,17 @@ const Login = (): React.ReactElement => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:8080/users/login", {
+        email,
+        password,
+      });
 
       if (response.status === 200) {
         const { user, access_token } = response.data.response.data;
-        const { id: userId, credentials: { email, name, lastname } } = user;
+        const {
+          id: userId,
+          credentials: { email, name, lastname },
+        } = user;
 
         if (access_token) {
           setIsLoading(false);
@@ -49,16 +49,16 @@ const Login = (): React.ReactElement => {
           Cookies.set("email", email);
           Cookies.set("name", name);
           Cookies.set("lastname", lastname);
-          router.push('/dashboard');
+          router.push("/dashboard");
         }
       }
     } catch (error: any) {
-        setIsLoading(false);
-        errorHandler(error.response.data.response.message)
-        
-        setTimeout(() => {
-            errorHandler('')
-        }, 3000);
+      setIsLoading(false);
+      setErrorMessage(error.response.data.response.message);
+
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
@@ -113,7 +113,24 @@ const Login = (): React.ReactElement => {
             classname="w-[80%] p-4 rounded-xl placeholder:text-center outline-none font-medium"
           />
 
-          <SubmitButton value={ isLoading ? "Logging in..." : errorMessage ? errorMessage : "Login"} />
+          <div className="flex flex-col w-full items-center gap-3 mt-5">
+            <SubmitButton
+              value={
+                isLoading
+                  ? "Logging in..."
+                  : errorMessage
+                  ? errorMessage
+                  : "Login"
+              }
+            />
+            <span className="text-main-color text-lg">- or -</span>
+            <Link
+              href="/register"
+              className="bg-main-color text-white p-3 rounded-xl font-semibold text-lg text-center w-[60%] text-nowrap"
+            >
+              Create your account
+            </Link>
+          </div>
         </Form>
       </Formik>
     </div>
