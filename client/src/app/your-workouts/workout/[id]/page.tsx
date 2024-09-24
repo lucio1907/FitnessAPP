@@ -2,8 +2,13 @@ import axios from "axios";
 import React from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import WorkoutExercisesFilter from "@/components/dashboard/WorkoutsExercisesFilter";
+import WorkoutExercisesFilter from "@/components/dashboard-workouts/WorkoutsExercisesFilter";
 import NoExercises from "@/components/errors/NoExercises";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Fitness APP | Workout details'
+}
 
 export interface ExerciseTypes {
   id: string;

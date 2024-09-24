@@ -1,5 +1,10 @@
-import DashboardWorkouts from '@/components/dashboard/DashboardWorkouts'
+import DashboardWorkouts from '@/components/dashboard-workouts/DashboardWorkouts'
+import { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: 'Fitness APP | Workouts',
+}
 
 const DashboardWorkoutsPage = (): React.ReactElement => {
   return (

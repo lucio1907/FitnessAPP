@@ -1,22 +1,22 @@
+import LogoutButton from "@/components/buttons/LogoutButton";
 import ProfileInfoComponent from "@/components/user-info/ProfileInfoComponent";
 import GoBackButtonSvg from "@/svg/GoBackButtonSvg";
-import { cookies } from "next/headers";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
-const ProfileInfoPage = (): React.ReactElement => {
-  const cookieStore = cookies();
-  const userId: string | undefined = cookieStore.get("user_id")?.value;
+export const metadata: Metadata = {
+  title: 'Fitness APP | Profile'
+}
 
+const ProfileInfoPage = (): React.ReactElement => {
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <div className="w-full h-[100px] flex items-center px-5 border-b-[1px] border-main-color shadow-main-color">
+      <div className="w-full h-[100px] flex items-center justify-between px-5 border-b-[1px] border-main-color shadow-main-color">
         <Link href="/dashboard">
           <GoBackButtonSvg classname="text-main-color w-[40px]" />
         </Link>
-        <p className="font-semibold text-white text-sm text-end">
-          Account ID: <span className="text-main-color">{userId}</span>
-        </p>
+        <LogoutButton />
       </div>
       <ProfileInfoComponent />
     </div>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import FilterDayButton from "@/components/buttons/FilterDayButton";
-import WorkoutExercisesInfo from "@/components/dashboard/WorkoutExercisesInfo";
+import WorkoutExercisesInfo from "@/components/dashboard-workouts/WorkoutExercisesInfo";
 import { ExerciseTypes } from "@/app/your-workouts/workout/[id]/page";
 import Link from "next/link";
 

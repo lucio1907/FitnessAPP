@@ -1,4 +1,4 @@
-import DashboardHeader from '@/components/dashboard/DashboardHeader'
+import DashboardHeader from '@/components/dashboard-workouts/DashboardHeader'
 import React from 'react'
 
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
