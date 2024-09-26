@@ -3,6 +3,7 @@ import checkSession from "../../middlewares/checkSession.middlewares";
 import {
   deleteProgress,
   getProgress,
+  getProgressByExerciseId,
   getProgressByUser,
   saveProgress,
 } from "../../controllers/progress.controllers";
@@ -10,7 +11,8 @@ import {
 const router = Router();
 
 router.get("/exercise", checkSession, getProgress);
-router.get("/user-progress", checkSession, getProgressByUser);
+router.get("/user-progress/:user_id", checkSession, getProgressByUser);
+router.get("/user-progress/exercise/:exercise_id", checkSession, getProgressByExerciseId);
 
 router.post("/save", checkSession, saveProgress);
 

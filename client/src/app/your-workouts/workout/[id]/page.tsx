@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import WorkoutExercisesFilter from "@/components/dashboard-workouts/WorkoutsExercisesFilter";
 import NoExercises from "@/components/errors/NoExercises";
 import { Metadata } from "next";
+import Navbar from "@/components/navbar/Navbar";
 
 export const metadata: Metadata = {
   title: 'Fitness APP | Workout details'
@@ -73,6 +74,7 @@ const WorkoutInfoPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full h-full flex flex-col">
+      <Navbar href="/your-workouts"/>
       <div className="w-full h-full p-5">
         <div className="flex flex-col gap-2">
           <p className="text-white font-semibold">

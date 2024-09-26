@@ -25,7 +25,6 @@ class GetProgressByUserService {
         },
       ],
       attributes: { exclude: ["user_id", "exercise_id"] },
-      order: [['date', 'DESC']]
     });
 
     if (getUserProgress.length === 0)

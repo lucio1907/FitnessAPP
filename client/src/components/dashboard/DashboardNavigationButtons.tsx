@@ -4,15 +4,17 @@ import React from "react";
 const DashboardNavigationButtons = ({
   href,
   value,
+  classname
 }: {
   href: string;
   value: string;
+  classname?: string
 }): React.ReactElement => {
   return (
     <>
       <Link
         href={href}
-        className="relative flex items-center px-6 py-5 overflow-hidden font-medium transition-all bg-main-color rounded-md group"
+        className={`${classname} relative flex items-center px-6 py-5 overflow-hidden font-medium transition-all bg-main-color rounded-md group`}
       >
         <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#ce2367] rounded group-hover:-mr-4 group-hover:-mt-4">
           <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-[#ffa2c7]"></span>

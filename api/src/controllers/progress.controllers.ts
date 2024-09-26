@@ -3,6 +3,7 @@ import saveProgressService from "../services/progress/SaveProgress.service";
 import getProgressService from "../services/progress/GetProgress.service";
 import getProgressByUserService from "../services/progress/GetProgressByUser.service";
 import deleteProgressService from "../services/progress/DeleteProgress.service";
+import getProgressByExerciseIdServie from "../services/progress/GetProgressByExerciseId.service";
 
 export const saveProgress = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,7 +25,7 @@ export const getProgress = async (req: Request, res: Response, next: NextFunctio
 
 export const getProgressByUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userProgress = await getProgressByUserService.get(req.body.user_id);
+        const userProgress = await getProgressByUserService.get(req.params.user_id);
         return res.json({ response: { message: userProgress.message, userProgress: userProgress.userProgress, status: 'OK' } });
     } catch (error) {
         next(error);
@@ -39,3 +40,12 @@ export const deleteProgress = async (req: Request, res: Response, next: NextFunc
         next(error);
     }
 };
+
+export const getProgressByExerciseId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const exercise = await getProgressByExerciseIdServie.get(req.params.exercise_id);
+        return res.json({ response: { message: exercise.message, exercises: exercise.exerciseProgress } });
+    } catch (error) {
+        next(error);
+    }
+}
