@@ -26,6 +26,14 @@ const WorkoutsModel = sequelizeConfig.define("workouts", {
     allowNull: true,
     defaultValue: "No description",
   },
+}, {
+  hooks: {
+    beforeCreate: (workout: any) => {
+      if (!workout.description) {
+        workout.description = "No description";
+      }
+    },
+  },
 });
 
 export default WorkoutsModel;

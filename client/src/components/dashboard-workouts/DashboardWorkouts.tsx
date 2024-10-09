@@ -37,7 +37,6 @@ const DashboardWorkouts = (): React.ReactElement => {
         },
       });
       setWorkouts(response.data.response.data.workouts);
-      console.log(response.data.response.data.workouts)
       loadingHandler(false);
     } catch (error: any) {
       setErrorMessage(error.response.data.response.message);

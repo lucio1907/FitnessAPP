@@ -11,7 +11,7 @@ const Dashboard = (): React.ReactElement => {
         <h1 className="text-white text-2xl text-center">What are you going to do today, {name}?</h1>
         <DashboardNavigationButtons href="/your-workouts" value="Your workouts" />
         <DashboardNavigationButtons href="/progress" value="Your progress" />
-        <DashboardNavigationButtons href="/exercises" value="Your exercises" />
+        <DashboardNavigationButtons href="/your-workouts/create-workout" value="Create your workout"/>
       </div>
     </div>
   );

@@ -67,6 +67,7 @@ export const getWorkoutByUser = async (req: Request, res: Response, next: NextFu
         const getWorkouts = await getUserWorkoutsService.get(req.params.user_id);
         return res.json({ response: { message: getWorkouts.message, data: getWorkouts.workouts } })
     } catch (error) {
+        console.log(error)
         next(error);
     }
 }

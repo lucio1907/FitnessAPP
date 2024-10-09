@@ -27,6 +27,7 @@ class GetUserWorkoutsService {
         },
       ],
       attributes: { exclude: ["password"] },
+      order: [[WorkoutsModel, 'createdAt', 'DESC']],
     });
 
     if (!getWorkouts) throw new NotFoundException("Workouts not found");
