@@ -99,6 +99,7 @@ const WorkoutInfoPage = async ({ params }: { params: { id: string } }) => {
         {Array.isArray(workout.workout_exercises) ? (
           <WorkoutExercisesFilter
             exercises={workout.workout_exercises as ExerciseTypes[]}
+            workout_id={id}
           />
         ) : (
           <NoExercises workout_id={workout.workout_id}/>

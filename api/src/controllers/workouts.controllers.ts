@@ -38,9 +38,10 @@ export const getWorkout = async (req: Request, res: Response, next: NextFunction
 export const addExercise = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const exerciseAdded = await addExerciseService.add(req.body);
-        return res.status(201).json({ response: { message: exerciseAdded.message, exerciseAdded: exerciseAdded.exercise_added, newExercise: exerciseAdded.newExercise } })
+        return res.status(201).json({ response: { message: exerciseAdded.message, newExercise: exerciseAdded.newExercise } })
     } catch (error) {
         next(error);
+        console.log(error)
     }
 };
 

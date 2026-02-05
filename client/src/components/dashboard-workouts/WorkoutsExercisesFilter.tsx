@@ -1,4 +1,4 @@
-"use client"; // Asegúrate de usar este comando para que sea un componente cliente
+"use client";
 
 import React, { useState } from "react";
 import FilterDayButton from "@/components/buttons/FilterDayButton";
@@ -26,10 +26,12 @@ const dayTranslations: { [key: string]: string } = {
 
 interface WorkoutExercisesFilterProps {
   exercises: ExerciseTypes[]; // Arreglo de ejercicios que viene del servidor
+  workout_id: string
 }
 
 const WorkoutExercisesFilter: React.FC<WorkoutExercisesFilterProps> = ({
   exercises,
+  workout_id
 }) => {
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
@@ -94,11 +96,19 @@ const WorkoutExercisesFilter: React.FC<WorkoutExercisesFilterProps> = ({
         {selectedDay === null && (
           <Link
             href="/dashboard"
-            className="bg-main-color p-3 mt-5 rounded-md text-white font-semibold"
+            className="bg-main-color p-3 mt-5 rounded-md text-white font-semibold w-[80%] text-center"
           >
             Go to dashboard
           </Link>
         )}
+      </div>
+      <div className="flex justify-center mt-5">
+        <Link
+          href={`/add-exercise/${workout_id}`}
+          className="bg-main-color p-3 mt-5 rounded-md text-white font-semibold  text-center w-[80%]"
+        >
+          Add new exercise
+        </Link>
       </div>
 
       {/* Mostrar ejercicios filtrados */}

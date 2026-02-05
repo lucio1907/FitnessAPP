@@ -8,7 +8,7 @@ const NoExercises = ({ workout_id }: { workout_id: string }) => {
       <p className="text-main-color text-3xl font-semibold">No exercises...</p>
       <div className="flex flex-col items-center mt-10 gap-3">
         <Link
-          href={`/dashboard/workout/add-exercise/${workout_id}`}
+          href={`/add-exercise/${workout_id}`}
           className="bg-main-color text-white p-3 rounded-lg"
         >
           Add exercise

@@ -14,7 +14,7 @@ class AddExerciseService {
     this.exercisesCollection = ExercisesModel;
   }
 
-  private searchExersice = async (exercise_name: string) => {
+  private searchExercise = async (exercise_name: string, workout_id: string) => {
     const found = await this.exercisesCollection.findOne({
       where: sequelize.where(
         sequelize.fn("LOWER", sequelize.col("exercise_name")),
@@ -22,62 +22,51 @@ class AddExerciseService {
       ),
     });
 
-    return found;
-  };
+    const foundInWorkout = await this.collection.findOne({ where: { workout_id, exercise_id: found?.dataValues.exercise_id } })
+    console.log(foundInWorkout)
 
-  public add = async (body: WorkoutExercise) => {
-    const { workout_id, exercise_name, day, sets, reps, weight } = body;
+    return found
+};
 
-    if ([workout_id, exercise_name, day, sets, reps, weight].includes(""))
+public add = async (body: WorkoutExercise) => {
+  const { workout_id, exercise_name, day, sets, reps, weight } = body;
+
+  if ([workout_id, exercise_name, day, sets, reps, weight].includes(""))
       throw new BadRequestException("Fields cannot be empty");
 
-    const exerciseFound = await this.searchExersice(exercise_name);
+  // Buscar si el ejercicio ya existe en la rutina
+  const exerciseFound = await this.searchExercise(exercise_name, workout_id);
 
-    if (!exerciseFound) {
-        const newExercise = {
-            exercise_id: uuid(),
-            exercise_name,
-            sets,
-            reps,
-            weight
-        }
+  if (!exerciseFound) {
+      const newExercise = {
+          exercise_id: uuid(),
+          exercise_name,
+          sets,
+          reps,
+          weight
+      };
 
-        const addToWorkout = {
-            id: uuid(),
-            workout_id,
-            exercise_id: newExercise.exercise_id,
-            day,
-            sets,
-            reps,
-            weight
-        };
+      const addToWorkout = {
+          id: uuid(),
+          workout_id,
+          exercise_id: newExercise.exercise_id,
+          day,
+          sets,
+          reps,
+          weight
+      };
 
-        await Promise.all([
-            await this.exercisesCollection.create(newExercise),
-            await this.collection.create(addToWorkout),
-        ])
-        
-        return { message: 'New exercise created and added to workout!', newExercise };
-    }
+      await Promise.all([
+          this.exercisesCollection.create(newExercise),
+          this.collection.create(addToWorkout),
+      ]);
 
-    const exerciseInWorkout = await this.collection.findOne({ where: { exercise_id: exerciseFound.dataValues.exercise_id } })
+      return { message: 'New exercise created and added to workout!', newExercise };
+  }
 
-    if (exerciseInWorkout) throw new BadRequestException(`${exercise_name} are in the workout already`);
+  throw new BadRequestException(`${exercise_name} already exists in this workout.`);
+};
 
-    const addToWorkout = {
-        id: uuid(),
-        workout_id,
-        exercise_id: exerciseFound.dataValues.exercise_id,
-        day,
-        sets,
-        reps,
-        weight
-    };
-
-    await this.collection.create(addToWorkout);
-
-    return { message: 'Exercise added to workout', exercise_added: addToWorkout };
-  };
 }
 
 const addExerciseService = new AddExerciseService();
